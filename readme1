@@ -1,0 +1,120 @@
+# RU Burger Ordering System
+
+## Overview
+
+The **RU Burger Ordering System** is a JavaFX-based application designed to assist restaurant staff in managing and taking customer orders. The application supports customizable burgers, sandwiches, combo meals, dynamic pricing, and order management—all achieved via pop-up dialogs (no text fields are used in the main UI).
+
+## Project Structure
+
+The project follows a standard Java project structure:
+
+RU-Burger-Ordering-System/
+│
+├── src/
+│   ├── controller/
+│   │   ├── MainController.java
+│   │   ├── CurrentOrderController.java
+│   │   └── AllOrdersController.java
+│   │
+│   ├── model/
+│   │   ├── MenuItem.java
+│   │   ├── Sandwich.java
+│   │   ├── Burger.java
+│   │   ├── Combo.java
+│   │   ├── Beverage.java
+│   │   ├── Side.java
+│   │   ├── Bread.java
+│   │   ├── Protein.java
+│   │   └── AddOns.java
+│   │
+│   └── Main.java             // Application entry point
+│
+├── resources/
+│   ├── fxml/
+│   │   ├── MainView.fxml
+│   │   ├── CurrentOrderView.fxml
+│   │   └── AllOrdersView.fxml
+│   │
+│   ├── images/
+│   │   ├── burger.png
+│   │   ├── sandwich.png
+│   │   ├── beverage.png
+│   │   ├── sides.png
+│   │   └── (additional images)
+│   │
+│   └── styles.css            // CSS for JavaFX components
+│
+├── test/
+│   ├── SandwichTest.java
+│   └── BurgerTest.java
+│
+└── README.txt                // This file
+
+## Features
+
+- **Menu Item Customization:**  
+  Order burgers, sandwiches, beverages, and sides with a variety of options and add-ons.
+  
+- **Combo Meals:**  
+  Create combo meals that include a main item, a side (with size), and a beverage (with size), with dynamic pricing and combo discounts.
+
+- **Dynamic Price Calculation:**  
+  The running price is calculated in real time as items are customized.
+
+- **Order Management:**  
+  View, cancel, and export orders using pop-ups, adhering to the project guidelines (no text fields in the main UI).
+
+- **Pop-up Dialogs:**  
+  All user inputs and notifications are handled via modal pop-ups (using JavaFX’s Alert and TextInputDialog).
+
+- **JUnit Testing:**  
+  The project includes JUnit 5 tests for verifying the pricing logic for Sandwich and Burger classes.
+
+## Requirements
+
+- **Java Development Kit (JDK):** Version 11 or higher is recommended.
+- **JavaFX:** Ensure JavaFX libraries are added to your build path.
+- **JUnit 5:** For running the test cases.
+- **IDE:** IntelliJ IDEA, Eclipse, or any Java IDE with JavaFX support.
+
+## How to Run the Application
+
+1. **Import the Project:**  
+   Open the project in your preferred IDE. Make sure JavaFX is properly configured.
+
+2. **Build the Project:**  
+   Use your IDE’s build or compile feature to compile the project.
+
+3. **Run the Main Application:**  
+   Execute the `Main.java` file in the `src/` directory. This launches the home screen of the RU Burger Ordering System.
+
+4. **Using the Application:**  
+   - Navigate through the ordering screens.
+   - Use pop-up dialogs for any text input or information.
+   - Manage orders using the All Orders screen.
+
+## How to Run Tests
+
+1. **Set Up Tests:**  
+   Ensure that JUnit 5 is included in your project.
+
+2. **Execute Test Cases:**  
+   Run the test classes (e.g., `SandwichTest.java` and `BurgerTest.java`) using your IDE’s test runner.
+
+## Known Issues & Future Enhancements
+
+- **Enhancements:**
+  - Further UI enhancements and animation effects.
+  - Additional combo customization options.
+  - Enhanced error handling and input validation via dialogs.
+  
+- **Known Issues:**
+  - Resource file paths (images, FXML, CSS) must be correctly configured when deploying the application across different environments.
+
+## Credits
+
+Developed as part of the CS213 Spring 2025 course under Dr. Lily Chang's supervision. Special thanks to all team members for their valuable contributions.
+
+## License
+
+(Include license information here, if applicable.)
