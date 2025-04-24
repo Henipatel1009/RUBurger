@@ -4,12 +4,17 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.MenuItem;
 import model.Order;
 import model.OrderManager;
 
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.Optional;
 
@@ -160,12 +165,24 @@ public class CurrentOrderController {
         success.setContentText("Your order has been placed. Order #" + (orderManager.getOrders().size()));
         success.showAndWait();
 
-        // Close window
+        // Close window after placing order
         ((Stage) placeOrderButton.getScene().getWindow()).close();
     }
 
     /**
-     * Closes the window
+     * Handles the back button action.
+     * Closes (hides) the current window and opens the home screen in a new window.
+     * @param event the action event
+     */
+    @FXML
+    private void handleBack(ActionEvent event) {
+        // Get the current stage (the current order window) and close it completely.
+        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        currentStage.close();
+    }
+
+    /**
+     * Closes the window.
      * @param event the action event
      */
     @FXML

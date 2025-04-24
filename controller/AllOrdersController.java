@@ -8,7 +8,7 @@ import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.Order;
-import model.MenuItem; // Make sure to use the correct import for your model
+import model.MenuItem;
 import model.OrderManager;
 
 import java.io.File;
@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Controller for the all orders page
+ * Controller for the all orders page.
  */
 public class AllOrdersController {
 
@@ -43,7 +43,7 @@ public class AllOrdersController {
     private ObservableList<MenuItem> orderItems;
 
     /**
-     * Initializes the controller
+     * Initializes the controller.
      */
     public void initialize() {
         orders = FXCollections.observableArrayList();
@@ -57,32 +57,30 @@ public class AllOrdersController {
             @Override
             protected void updateItem(Order order, boolean empty) {
                 super.updateItem(order, empty);
-
                 if (empty || order == null) {
                     setText(null);
                 } else {
-                    DecimalFormat df = new DecimalFormat("0.00");
-                    setText("Order #" + order.getNumber() + " - $" + df.format(order.getTotal()));
+                    // Using String.format to format total to 2 decimals
+                    setText("Order #" + order.getNumber() + " - $" + String.format("%.2f", order.getTotal()));
                 }
             }
         });
 
-        // Set cell factory for order details list
+        // Set cell factory for order details list to display full item description.
         orderDetailsListView.setCellFactory(lv -> new ListCell<>() {
             @Override
             protected void updateItem(MenuItem item, boolean empty) {
                 super.updateItem(item, empty);
-
                 if (empty || item == null) {
                     setText(null);
                 } else {
-                    DecimalFormat df = new DecimalFormat("0.00");
-                    setText(item.getClass().getSimpleName() + " - $" + df.format(item.price()));
+                    // Uses the overridden toString() of the MenuItem (or Combo) to display details.
+                    setText(item.toString());
                 }
             }
         });
 
-        // Update order details when an order is selected
+        // Update order details when an order is selected.
         ordersListView.getSelectionModel().selectedItemProperty().addListener(
                 (obs, oldVal, newVal) -> {
                     if (newVal != null) {
@@ -98,7 +96,7 @@ public class AllOrdersController {
     }
 
     /**
-     * Sets the order manager
+     * Sets the order manager.
      * @param orderManager the order manager to set
      */
     public void setOrderManager(OrderManager orderManager) {
@@ -106,33 +104,29 @@ public class AllOrdersController {
     }
 
     /**
-     * Loads all orders from the order manager
+     * Loads all orders from the order manager.
      */
     public void loadOrders() {
         List<Order> allOrders = orderManager.getOrders();
         orders.clear();
         orders.addAll(allOrders);
-
-        // Disable buttons if no orders
         exportButton.setDisable(allOrders.isEmpty());
         cancelOrderButton.setDisable(true);
     }
 
     /**
-     * Loads the details of a selected order
-     * @param order the selected order
+     * Loads the details of a selected order.
+     * @param order the selected order.
      */
     private void loadOrderDetails(Order order) {
         orderItems.clear();
         orderItems.addAll(order.getItems());
-
-        DecimalFormat df = new DecimalFormat("0.00");
-        orderTotalLabel.setText("$" + df.format(order.getTotal()));
+        orderTotalLabel.setText("$" + String.format("%.2f", order.getTotal()));
     }
 
     /**
-     * Cancels the selected order
-     * @param event the action event
+     * Cancels the selected order.
+     * @param event the action event.
      */
     @FXML
     void cancelOrder(ActionEvent event) {
@@ -142,7 +136,6 @@ public class AllOrdersController {
             confirm.setTitle("Cancel Order");
             confirm.setHeaderText("Cancel Order #" + selectedOrder.getNumber());
             confirm.setContentText("Are you sure you want to cancel this order?");
-
             Optional<ButtonType> result = confirm.showAndWait();
             if (result.isPresent() && result.get() == ButtonType.OK) {
                 orderManager.cancelOrder(selectedOrder);
@@ -154,16 +147,14 @@ public class AllOrdersController {
     }
 
     /**
-     * Exports all orders to a text file
-     * @param event the action event
+     * Exports all orders to a text file.
+     * @param event the action event.
      */
     @FXML
     void exportOrders(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save Orders");
-        fileChooser.getExtensionFilters().add(
-                new FileChooser.ExtensionFilter("Text Files", "*.txt")
-        );
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text Files", "*.txt"));
         fileChooser.setInitialFileName("orders.txt");
 
         File file = fileChooser.showSaveDialog(exportButton.getScene().getWindow());
@@ -173,13 +164,10 @@ public class AllOrdersController {
                     writer.write("Order #" + order.getNumber() + "\n");
                     writer.write("Items:\n");
 
-                    DecimalFormat df = new DecimalFormat("0.00");
                     for (MenuItem item : order.getItems()) {
-                        writer.write("- " + item.getClass().getSimpleName() +
-                                ": $" + df.format(item.price()) + "\n");
+                        writer.write("- " + item.toString() + "\n");
                     }
-
-                    writer.write("\nTotal: $" + df.format(order.getTotal()) + "\n\n");
+                    writer.write("\nTotal: $" + String.format("%.2f", order.getTotal()) + "\n\n");
                 }
 
                 Alert success = new Alert(Alert.AlertType.INFORMATION);
@@ -199,8 +187,8 @@ public class AllOrdersController {
     }
 
     /**
-     * Closes the window
-     * @param event the action event
+     * Closes the window.
+     * @param event the action event.
      */
     @FXML
     void close(ActionEvent event) {

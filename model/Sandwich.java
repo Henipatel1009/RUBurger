@@ -1,18 +1,19 @@
-// model/Sandwich.java
 package model;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
- * Class representing a sandwich
+ * Class representing a sandwich.
  */
 public class Sandwich extends MenuItem {
     protected Bread bread;
     protected Protein protein;
-    protected ArrayList<AddOns> addOns;
+    protected List<AddOns> addOns;
 
     /**
-     * Constructs a new sandwich
+     * Constructs a new Sandwich.
      * @param bread the type of bread
      * @param protein the type of protein
      */
@@ -24,64 +25,42 @@ public class Sandwich extends MenuItem {
     }
 
     /**
-     * Calculates the price of the sandwich
-     * @return the price
+     * Calculates the price of the sandwich.
+     * @return the total price.
      */
     @Override
     public double price() {
         double basePrice = protein.getPrice();
         double addOnsPrice = 0.0;
-
         for (AddOns addOn : addOns) {
             addOnsPrice += addOn.getPrice();
         }
-
         return (basePrice + addOnsPrice) * quantity;
     }
 
-    /**
-     * Gets the bread type
-     * @return the bread
-     */
     public Bread getBread() {
         return bread;
     }
 
-    /**
-     * Sets the bread type
-     * @param bread the bread to set
-     */
     public void setBread(Bread bread) {
         this.bread = bread;
     }
 
-    /**
-     * Gets the protein type
-     * @return the protein
-     */
     public Protein getProtein() {
         return protein;
     }
 
-    /**
-     * Sets the protein type
-     * @param protein the protein to set
-     */
     public void setProtein(Protein protein) {
         this.protein = protein;
     }
 
-    /**
-     * Gets the add-ons
-     * @return the list of add-ons
-     */
-    public ArrayList<AddOns> getAddOns() {
+    public List<AddOns> getAddOns() {
         return addOns;
     }
 
     /**
-     * Adds an add-on
-     * @param addOn the add-on to add
+     * Adds an add-on if it isn't already included.
+     * @param addOn the add-on to add.
      */
     public void addAddOn(AddOns addOn) {
         if (!addOns.contains(addOn)) {
@@ -90,16 +69,18 @@ public class Sandwich extends MenuItem {
     }
 
     /**
-     * Removes an add-on
-     * @param addOn the add-on to remove
+     * Removes the specified add-on.
+     * @param addOn the add-on to remove.
      */
     public void removeAddOn(AddOns addOn) {
         addOns.remove(addOn);
     }
 
     /**
-     * Returns a string representation of the sandwich
-     * @return the string representation
+     * Returns a descriptive string for this sandwich.
+     * If add-ons are present, they are appended separated by commas.
+     * If quantity is more than one, the quantity is appended as well.
+     * @return the string representation of the sandwich.
      */
     @Override
     public String toString() {
@@ -108,12 +89,10 @@ public class Sandwich extends MenuItem {
 
         if (!addOns.isEmpty()) {
             sb.append(" with ");
-            for (int i = 0; i < addOns.size(); i++) {
-                sb.append(addOns.get(i));
-                if (i < addOns.size() - 1) {
-                    sb.append(", ");
-                }
-            }
+            String addOnsList = addOns.stream()
+                    .map(AddOns::toString)
+                    .collect(Collectors.joining(", "));
+            sb.append(addOnsList);
         }
 
         if (quantity > 1) {
@@ -122,5 +101,4 @@ public class Sandwich extends MenuItem {
 
         return sb.toString();
     }
-
 }

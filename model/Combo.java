@@ -1,7 +1,7 @@
 package model;
 
 /**
- * Represents a combo meal with a main item, side, and drink
+ * Represents a combo meal with a main item, side, and drink.
  */
 public class Combo extends MenuItem {
     private String mainItem;
@@ -15,72 +15,96 @@ public class Combo extends MenuItem {
     private static final double COMBO_DISCOUNT = 1.00; // $1.00 discount for combo
 
     /**
-     * Constructs a new combo
-     * @param mainItem the main item (burger or sandwich)
-     * @param side the side (Chips or Apple Slices)
-     * @param drink the drink flavor
+     * Constructs a new Combo.
+     *
+     * @param mainItem the main item (e.g., "Burger" or "Sandwich")
+     * @param side     the side item (e.g., "Chips" or "Apple Slices")
+     * @param drink    the drink flavor
      */
     public Combo(String mainItem, String side, String drink) {
         this.mainItem = mainItem;
         this.side = side;
         this.drink = drink;
+        this.quantity = 1;
     }
 
     /**
-     * Gets the main item
-     * @return the main item
+     * Gets the main item.
+     *
+     * @return the main item.
      */
     public String getMainItem() {
         return mainItem;
     }
 
     /**
-     * Gets the side
-     * @return the side
+     * Gets the side item.
+     *
+     * @return the side item.
      */
     public String getSide() {
         return side;
     }
 
     /**
-     * Gets the drink
-     * @return the drink
+     * Gets the drink.
+     *
+     * @return the drink.
      */
     public String getDrink() {
         return drink;
     }
 
     /**
-     * Calculates the price of the combo
-     * Using a placeholder for main item price calculation
-     * @return the price of the combo
+     * Calculates the price of the combo.
+     * <p>
+     * The price is calculated as follows:
+     * combo price = (mainItemPrice + sidePrice + DRINK_PRICE - COMBO_DISCOUNT) * quantity
+     * </p>
+     *
+     * @return the price of the combo.
      */
     @Override
     public double price() {
         double mainItemPrice = calculateMainItemPrice();
-        double sidePrice = "Chips".equals(side) ? CHIPS_PRICE : APPLE_PRICE;
-
-        // Total price with combo discount
-        return mainItemPrice + sidePrice + DRINK_PRICE - COMBO_DISCOUNT;
+        double sidePrice = "Chips".equalsIgnoreCase(side) ? CHIPS_PRICE : APPLE_PRICE;
+        return (mainItemPrice + sidePrice + DRINK_PRICE - COMBO_DISCOUNT) * quantity;
     }
 
     /**
-     * Calculates the price of the main item
-     * This is a placeholder method - in a real app, this would
-     * look up the price from the appropriate model class
-     * @return the price of the main item
+     * Calculates the base price of the main item.
+     * <p>
+     * This is a placeholder implementation. In a complete application, you might look up
+     * the price from more detailed item data.
+     * </p>
+     *
+     * @return the price of the main item.
      */
     private double calculateMainItemPrice() {
-        // Placeholder logic - replace with actual implementation
-        if (mainItem.contains("Burger")) {
-            return 8.99; // Base burger price
+        if (mainItem.toLowerCase().contains("burger")) {
+            return 8.99;
         } else {
-            return 7.99; // Base sandwich price
+            return 7.99;
         }
     }
 
+    /**
+     * Returns a string representation of the combo.
+     * <p>
+     * Example output:
+     * "Burger Combo with Chips and Cola - $12.47" or with quantity > 1,
+     * "Burger Combo with Chips and Cola - $12.47 (x2)"
+     * </p>
+     *
+     * @return the string representation.
+     */
     @Override
     public String toString() {
-        return mainItem + " Combo with " + side + " and " + drink;
+        return String.format("%s Combo with %s and %s - $%.2f%s",
+                mainItem,
+                side,
+                drink,
+                price(),
+                (quantity > 1 ? " (x" + quantity + ")" : ""));
     }
 }

@@ -74,13 +74,7 @@ public class Side extends MenuItem {
      */
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(size).append(" ").append(type);
-
-        if (quantity > 1) {
-            sb.append(" (").append(quantity).append(")");
-        }
-
-        return sb.toString();
+        // Example output: "FRIES [LARGE]"
+        return type.name() + " [" + size.name() + "]";
     }
 }

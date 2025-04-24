@@ -8,15 +8,17 @@
 }
 
 .button {
-    -fx-background-color: #4285f4;
-    -fx-text-fill: white;
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #000000;
     -fx-font-size: 14px;
     -fx-padding: 8 15;
     -fx-background-radius: 4;
+    -fx-pref-width: 120px;
+    -fx-pref-height: 40px;
 }
 
 .button:hover {
-    -fx-background-color: #2a75f3;
+    -fx-background-color: #808080;
 }
 
 #addToOrderButton {

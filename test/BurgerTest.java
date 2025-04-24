@@ -5,34 +5,33 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Test class for the Burger class
+ * Test class for the Burger class.
  */
 public class BurgerTest {
 
     /**
-     * Test case 1: Single patty burger with cheese
+     * Test case 1: Single patty burger with no add-ons.
+     * Expected price: 6.99
      */
     @Test
-    public void testSinglePattyBurgerWithCheese() {
+    public void testSinglePattyBurgerNoAddOns() {
         Burger burger = new Burger(Bread.BRIOCHE, false);
-        burger.addAddOn(AddOns.CHEESE);
-
-        // Base price: 6.99 + Cheese: 1.00 = 7.99
-        assertEquals(7.99, burger.price(), 0.001);
+        assertEquals(6.99, burger.price(), 0.001);
     }
 
     /**
-     * Test case 2: Double patty burger with multiple add-ons
+     * Test case 2: Double patty burger with cheese and onions.
+     * Calculation:
+     *   Base price (single patty) = 6.99;
+     *   Double patty extra = +2.50, so base becomes 9.49;
+     *   Add-ons: Cheese (1.00) and Onions (0.30);
+     *   Total = 9.49 + 1.00 + 0.30 = 10.79.
      */
     @Test
-    public void testDoublePattyBurgerWithMultipleAddOns() {
-        Burger burger = new Burger(Bread.PRETZEL, true);
-        burger.addAddOn(AddOns.LETTUCE);
-        burger.addAddOn(AddOns.TOMATOES);
-        burger.addAddOn(AddOns.ONIONS);
+    public void testDoublePattyBurgerWithAddOns() {
+        Burger burger = new Burger(Bread.WHEAT_BREAD, true);
         burger.addAddOn(AddOns.CHEESE);
-
-        // Base price: 6.99 + Double: 2.50 + Add-ons: 1.90 = 11.39
-        assertEquals(11.39, burger.price(), 0.001);
+        burger.addAddOn(AddOns.ONIONS);
+        assertEquals(10.79, burger.price(), 0.001);
     }
 }

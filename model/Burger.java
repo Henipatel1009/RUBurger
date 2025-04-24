@@ -54,23 +54,7 @@ public class Burger extends Sandwich {
      */
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(doublePatty ? "Double" : "Single").append(" Burger on ").append(bread);
-
-        if (!addOns.isEmpty()) {
-            sb.append(" with ");
-            for (int i = 0; i < addOns.size(); i++) {
-                sb.append(addOns.get(i));
-                if (i < addOns.size() - 1) {
-                    sb.append(", ");
-                }
-            }
-        }
-
-        if (quantity > 1) {
-            sb.append(" (").append(quantity).append(")");
-        }
-
-        return sb.toString();
+        // Returns a descriptive string for the burger.
+        return "Burger" + (doublePatty ? " (Double)" : " (Single)");
     }
 }
